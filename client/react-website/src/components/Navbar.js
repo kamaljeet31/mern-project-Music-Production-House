@@ -6,33 +6,48 @@ const Navbar = () => {
     <>
       {/* - Navigation- */}
       <nav
-        class='navbar navbar-expand-lg navbar-light bg-light  py-3 '
+        className='navbar navbar-expand-lg navbar-light bg-light  py-3 '
         // id='mainNav'
       >
-        <div class='container'>
-          <NavLink class='navbar-brand js-scroll-trigger ' to='/'>
+        <div className='container'>
+          <NavLink className='navbar-brand js-scroll-trigger ' to='/'>
             LOGO
           </NavLink>
-          <div class='collapse navbar-collapse' id='navbarResponsive'>
-            <ul class='navbar-nav ml-auto my-2 my-lg-0 d-flex'>
-              <li class='nav-item'>
-                <NavLink class='nav-link js-scroll-trigger' to='/about'>
+          <div className='collapse navbar-collapse' id='navbarResponsive'>
+            <ul className='navbar-nav ml-auto my-2 my-lg-0 d-flex'>
+              <li className='nav-item'>
+                <NavLink className='nav-link js-scroll-trigger' to='/about'>
                   About
                 </NavLink>
               </li>
-              <li class='nav-item'>
-                <NavLink class='nav-link js-scroll-trigger' to='/services'>
+              <li className='nav-item'>
+                <NavLink className='nav-link js-scroll-trigger' to='/services'>
                   Services
                 </NavLink>
               </li>
-              <li class='nav-item'>
-                <NavLink class='nav-link js-scroll-trigger' to='/portfolio'>
+              <li className='nav-item'>
+                <NavLink className='nav-link js-scroll-trigger' to='/portfolio'>
                   Portfolio
                 </NavLink>
               </li>
-              <li class='nav-item'>
-                <NavLink class='nav-link js-scroll-trigger' to='/contact'>
+              <li className='nav-item'>
+                <NavLink className='nav-link js-scroll-trigger' to='/contact'>
                   Contact
+                </NavLink>
+              </li>
+              <li className='nav-item'>
+                <NavLink className='nav-link js-scroll-trigger' to='/login'>
+                  Login
+                </NavLink>
+              </li>
+              <li className='nav-item'>
+                <NavLink className='nav-link js-scroll-trigger' to='/signup'>
+                  Signup
+                </NavLink>
+              </li>
+              <li className='nav-item'>
+                <NavLink className='nav-link js-scroll-trigger' to='/logout'>
+                  Logout
                 </NavLink>
               </li>
             </ul>
