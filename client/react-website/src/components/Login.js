@@ -1,11 +1,38 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { useState } from 'react'
+import { NavLink, useHistory } from 'react-router-dom'
 function Login() {
+  const history = useHistory()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const loginUser = async (e) => {
+    e.preventDefault()
+
+    const res = await fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    })
+
+    const data = res.json()
+    if (res.status === 400 || !data) {
+      window.alert('Invalid Credentials')
+    } else {
+      window.alert('Login Successful')
+      history.push('/')
+    }
+  }
+
   return (
     <>
       <div className='container-fluid p-0'>
         <div className='login-form'>
-          <form action='/examples/actions/confirmation.php' method='post'>
+          <form method='POST'>
             <h2 className='text-center'>Log in</h2>
             <hr className='divider my-4' />
 
@@ -21,6 +48,8 @@ function Login() {
                   className='form-control'
                   name='username'
                   placeholder='Username'
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required='required'
                 />
               </div>
@@ -37,6 +66,8 @@ function Login() {
                   className='form-control'
                   name='password'
                   placeholder='Password'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required='required'
                 />
               </div>
@@ -44,6 +75,7 @@ function Login() {
             <div className='form-group'>
               <button
                 type='submit'
+                onClick={loginUser}
                 className='btn btn-primary login-btn btn-block'
               >
                 Log in
