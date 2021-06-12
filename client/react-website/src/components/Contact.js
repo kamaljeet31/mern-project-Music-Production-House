@@ -1,6 +1,80 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Contact = () => {
+  const [userData, setUserData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: '',
+  })
+  const userContact = async () => {
+    try {
+      const res = await fetch('/getData', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      const data = await res.json()
+      console.log(data)
+      setUserData({
+        ...userData,
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+      })
+
+      if (!res.status === 200) {
+        const error = new Error(res.error)
+        throw error
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    userContact()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // we are storing data in States
+
+  const handleInputs = (e) => {
+    const name = e.target.name
+    const value = e.target.value
+
+    setUserData({
+      ...userData,
+      [name]: value,
+    })
+  }
+
+  // send data to Backend
+
+  const contactForm = async (e) => {
+    e.preventDefault()
+    const { name, email, phone, message } = userData
+    const res = await fetch('/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        phone,
+        message,
+      }),
+    })
+    const data = await res.json()
+    if (res.status === 422 || !data) {
+      alert('message not sent')
+    } else {
+      alert('message sent')
+      setUserData({ ...userData, message: '' })
+    }
+  }
+
   return (
     <>
       {/* -- Contact-- */}
@@ -40,24 +114,24 @@ const Contact = () => {
                 <div className='input50'>
                   <input
                     type='text'
+                    value={userData.name}
                     placeholder='First Name'
-                    // onChange={handleInputs}
+                    onChange={handleInputs}
                     name='name'
-                    // value={userData.name}
                   />
                   <input
                     type='text'
+                    value={userData.email}
                     placeholder='Email'
-                    // onChange={handleInputs}
+                    onChange={handleInputs}
                     name='email'
-                    // value={userData.email}
                   />
                   <input
                     type='text'
+                    value={userData.phone}
                     placeholder='Phone'
-                    // onChange={handleInputs}
+                    onChange={handleInputs}
                     name='phone'
-                    // value={userData.phone}
                   />
                 </div>
               </div>
@@ -65,9 +139,9 @@ const Contact = () => {
                 <div className='input100'>
                   <textarea
                     placeholder='Message'
-                    // onChange={handleInputs}
+                    onChange={handleInputs}
                     name='message'
-                    // value={userData.message}
+                    value={userData.message}
                   ></textarea>
                 </div>
               </div>
@@ -76,7 +150,7 @@ const Contact = () => {
                   className='btn btn-primary'
                   type='submit'
                   value='Send Message'
-                  // onClick={contactForm}
+                  onClick={contactForm}
                 />
               </div>
             </form>
