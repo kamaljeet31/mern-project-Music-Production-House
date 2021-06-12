@@ -2,6 +2,7 @@
 const User = require('../models/userSchema')
 const express = require('express')
 const bcrypt = require('bcryptjs')
+const Authenticate = require('../middleware/authenticate')
 
 // require('../db/conn')
 
@@ -13,9 +14,13 @@ router.get('/home', (req, res) => {
 })
 
 //about us ka page
-router.get('/about', (req, res) => {
-  res.cookie('jwt', toff)
-  res.send('about us ka page')
+router.get('/about', Authenticate, (req, res) => {
+  res.send(req.rootUser)
+})
+
+// get User Data for contact us and homepage
+router.get('/getData', Authenticate, (req, res) => {
+  res.send(req.rootUser)
 })
 
 //logout ka page
@@ -28,6 +33,29 @@ router.get('/login', (req, res) => {
   res.json({ message: req.body })
   // res.send('login ka page')
   console.log(req.body)
+})
+
+//contact us ka page
+router.post('/contact', Authenticate, async (req, res) => {
+  try {
+    const { name, email, phone, message } = req.body
+    if (!name || !email || !phone || !message) {
+      return res.status(422).json({ error: 'plz fill the contact form' })
+    }
+    const userContact = await User.findOne({ _id: req.userID })
+    if (userContact) {
+      const userMessage = await userContact.addMessage(
+        name,
+        email,
+        phone,
+        message
+      )
+      await userContact.save()
+      res.status(201).json({ message: 'user Contact Successfully' })
+    }
+  } catch (error) {
+    console.log(error)
+  }
 })
 
 // Create Login

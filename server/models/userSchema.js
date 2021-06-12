@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken')
-
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 const { TokenExpiredError } = require('jsonwebtoken')
@@ -29,6 +28,30 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  messages: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      email: {
+        type: String,
+        required: true,
+      },
+      phone: {
+        type: Number,
+        required: true,
+      },
+      message: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
   tokens: [
     {
       token: { type: String, required: true },
@@ -52,6 +75,17 @@ userSchema.methods.generateAuthToken = async function () {
     this.tokens = this.tokens.concat({ token: token })
     await this.save()
     return token
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// storing messages in database
+userSchema.methods.addMessage = async function (name, email, phone, message) {
+  try {
+    this.messages = this.messages.concat({ name, email, phone, message })
+    await this.save()
+    return messages
   } catch (error) {
     console.log(error)
   }
