@@ -25,7 +25,8 @@ router.get('/getData', Authenticate, (req, res) => {
 
 //logout ka page
 router.get('/logout', (req, res) => {
-  res.send('logout ka page')
+  res.clearCookie('jwtoken', { path: '/' })
+  res.status(200).send('User logout')
 })
 
 //login ka page

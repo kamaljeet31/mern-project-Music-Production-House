@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
-const { TokenExpiredError } = require('jsonwebtoken')
+// const { TokenExpiredError } = require('jsonwebtoken')
 
 const userSchema = new mongoose.Schema({
   name: {

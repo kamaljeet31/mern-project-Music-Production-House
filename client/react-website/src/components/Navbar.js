@@ -11,7 +11,7 @@ const Navbar = () => {
       >
         <div className='container'>
           <NavLink className='navbar-brand js-scroll-trigger ' to='/'>
-            LOGO
+            <i className='fas fa-guitar fa-2x'></i>
           </NavLink>
           <div className='collapse navbar-collapse' id='navbarResponsive'>
             <ul className='navbar-nav ml-auto my-2 my-lg-0 d-flex'>

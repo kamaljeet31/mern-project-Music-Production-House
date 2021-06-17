@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 
 const About = () => {
   const history = useHistory()
@@ -36,18 +36,21 @@ const About = () => {
           <form method='GET'></form>
           <div className='row justify-content-center'>
             <div className='col-lg-8 text-center'>
-              <h2 className='text-white mt-0'>We've got what you need!</h2>
+              <h2 className='text-white mt-0'>
+                <i className='fas fa-music'> </i>We've got what you need!
+                <i className='fas fa-music'> </i>
+              </h2>
               <hr className='divider light my-4' />
               <p className='text-white-50 mb-4'>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Inventore, natus eos consequatur saepe ratione ipsum.
               </p>
-              <a
+              <NavLink
+                to='/services'
                 className='btn btn-light btn-xl js-scroll-trigger'
-                href='#services'
               >
                 Get Started!
-              </a>
+              </NavLink>
             </div>
           </div>
         </div>
