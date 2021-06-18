@@ -1,7 +1,78 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
+import { UserContext } from '../App'
 
 const Navbar = () => {
+  const { state, dispatch } = useContext(UserContext)
+
+  const RenderMenu = () => {
+    if (state) {
+      return (
+        <>
+          <li className='nav-item'>
+            <NavLink className='nav-link js-scroll-trigger' to='/about'>
+              About
+            </NavLink>
+          </li>
+          <li className='nav-item'>
+            <NavLink className='nav-link js-scroll-trigger' to='/services'>
+              Services
+            </NavLink>
+          </li>
+          <li className='nav-item'>
+            <NavLink className='nav-link js-scroll-trigger' to='/portfolio'>
+              Portfolio
+            </NavLink>
+          </li>
+          <li className='nav-item'>
+            <NavLink className='nav-link js-scroll-trigger' to='/contact'>
+              Contact
+            </NavLink>
+          </li>
+          <li className='nav-item'>
+            <NavLink className='nav-link js-scroll-trigger' to='/logout'>
+              Logout
+            </NavLink>
+          </li>
+        </>
+      )
+    } else {
+      return (
+        <>
+          <li className='nav-item'>
+            <NavLink className='nav-link js-scroll-trigger' to='/about'>
+              About
+            </NavLink>
+          </li>
+          <li className='nav-item'>
+            <NavLink className='nav-link js-scroll-trigger' to='/services'>
+              Services
+            </NavLink>
+          </li>
+          <li className='nav-item'>
+            <NavLink className='nav-link js-scroll-trigger' to='/portfolio'>
+              Portfolio
+            </NavLink>
+          </li>
+          <li className='nav-item'>
+            <NavLink className='nav-link js-scroll-trigger' to='/contact'>
+              Contact
+            </NavLink>
+          </li>
+          <li className='nav-item'>
+            <NavLink className='nav-link js-scroll-trigger' to='/login'>
+              Login
+            </NavLink>
+          </li>
+          <li className='nav-item'>
+            <NavLink className='nav-link js-scroll-trigger' to='/signup'>
+              Signup
+            </NavLink>
+          </li>
+        </>
+      )
+    }
+  }
   return (
     <>
       {/* - Navigation- */}
@@ -15,41 +86,7 @@ const Navbar = () => {
           </NavLink>
           <div className='collapse navbar-collapse' id='navbarResponsive'>
             <ul className='navbar-nav ml-auto my-2 my-lg-0 d-flex'>
-              <li className='nav-item'>
-                <NavLink className='nav-link js-scroll-trigger' to='/about'>
-                  About
-                </NavLink>
-              </li>
-              <li className='nav-item'>
-                <NavLink className='nav-link js-scroll-trigger' to='/services'>
-                  Services
-                </NavLink>
-              </li>
-              <li className='nav-item'>
-                <NavLink className='nav-link js-scroll-trigger' to='/portfolio'>
-                  Portfolio
-                </NavLink>
-              </li>
-              <li className='nav-item'>
-                <NavLink className='nav-link js-scroll-trigger' to='/contact'>
-                  Contact
-                </NavLink>
-              </li>
-              <li className='nav-item'>
-                <NavLink className='nav-link js-scroll-trigger' to='/login'>
-                  Login
-                </NavLink>
-              </li>
-              <li className='nav-item'>
-                <NavLink className='nav-link js-scroll-trigger' to='/signup'>
-                  Signup
-                </NavLink>
-              </li>
-              <li className='nav-item'>
-                <NavLink className='nav-link js-scroll-trigger' to='/logout'>
-                  Logout
-                </NavLink>
-              </li>
+              <RenderMenu />
             </ul>
           </div>
         </div>
